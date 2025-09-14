@@ -1,0 +1,53 @@
+               
+                                   K6 run Command Details
+                            install k6 using command "brew install k6"
+Step 1:                                                                      
+*********------------------------Required Command & Variables------------------------*********
+K6_PROMETHEUS_RW_USERNAME=<USER_NAME> \
+K6_PROMETHEUS_RW_PASSWORD=<YOUR_VALID_TOKEN> \
+K6_PROMETHEUS_RW_SERVER_URL=<SERVER_URL> \
+k6 run -o experimental-prometheus-rw main.js
+
+Step 2:
+*********----------------------- -How to Retrieve the Details-------------------------*********
+1. Login to Grafana K6 → https://grafana.com/
+2. Click on "Details" under "Manage your Grafana Cloud stack".
+3. Under "Prometheus", click "Details".
+4. Scroll to "Grafana Data Source settings":
+   → Copy the "User" field  
+      K6_PROMETHEUS_RW_USERNAME=<k6_username>
+
+5. In the "Password" field → click "Generate now".
+   → Enter a "Token name" → click "Create token".  
+   → Copy the token  
+      K6_PROMETHEUS_RW_PASSWORD=<generated_api_token>
+
+6. Copy the "URL" field  
+      K6_PROMETHEUS_RW_SERVER_URL=<server_url>
+
+*********---------------------------Now you can run the command-------------------------*********      
+Step 3: Example Command 
+    K6_PROMETHEUS_RW_USERNAME=<USER_NAME> \
+    K6_PROMETHEUS_RW_PASSWORD=<YOUR_VALID_TOKEN> \
+    K6_PROMETHEUS_RW_SERVER_URL=https://prometheus-prod-xx-prod-ap-south-1.grafana.net/api/prom/push \
+    k6 run -o experimental-prometheus-rw main.js
+
+*********---------------------------Import K6 Dashboard in Grafana-------------------------*********  
+Step 4: Import K6 Dashboard in Grafana
+1. Go to Grafana instance → Dashboards.
+2. Create a folder named "K6" (if not present).
+3. Click "New" → "Import".
+4. Enter 18030 in the "Load" field → click "Load".
+5. In "Prometheus" field → select default data source.
+6. Click "Import".
+
+
+*********-------------------------------------View Test Results-----------------------------*********
+1. Update time range filter → "Last 1 hour".
+2. Run tests locally.
+3. View reports in Grafana Cloud → K6 Dashboard.
+
+*********-------------------------View Test Results In Local Like Allure---------------------*********
+  Use the following command
+    - K6_WEB_DASHBOARD=true K6_WEB_DASHBOARD_EXPORT=./_reports/k6_report.html k6 run main.js
+  You can see the reports in the _reports folder as K6_report.html.
